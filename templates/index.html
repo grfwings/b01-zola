@@ -1,8 +1,7 @@
 <!-- index.html -->
-{% extends "home/base.html" %}
-{% load static %}
+{% extends "base.html" %}
 
-{% block title %}Between (The) Zero And (The) One{% endblock %}
+{% block title %}Between (The) Zero And (The) One{% endblock title %}
 
 {% block content %}
 <h2 class="page-title">A digital haunt in an analogue life</h2>
@@ -12,10 +11,10 @@
     <p>Hi! I'm Griffin, a computer programmer based in San Francisco, CA.</p>
   </div>
   <div class="column image-box">
-    <img src="{% static 'home/images/GCP-00020095.jpg' %}" alt="Sample Image">
+    <img src="{{ "images/GCP-00020095.jpg" | get_url }}" alt="Sample Image">
     <div class="image-caption">
       "Study of Eye Movements" - Deveraux H. Murphy, <a href="https://mitmuseum.mit.edu/collections/object/GCP-00020095">MIT History</a>
     </div>
   </div>
 </div>
-{% endblock %}
+{% endblock content %}

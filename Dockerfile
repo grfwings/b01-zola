@@ -1,17 +1,12 @@
-FROM ghcr.io/getzola/zola:v0.17.1 AS builder
+FROM ghcr.io/getzola/zola:v0.19.1 as zola
 
 COPY . /project
 WORKDIR /project
-
-RUN zola build
+RUN ["zola", "build"]
 
 FROM ghcr.io/static-web-server/static-web-server:2
 
 WORKDIR /public
-
-COPY --from=builder /project/public /public
-
+COPY --from=zola /project/public /public
 EXPOSE 8080
-
 CMD ["static-web-server", "/public", "--port", "8080"]
-
