@@ -1,13 +1,19 @@
 <header class="container">
-	<div>
-		<h2>Between (The) Zero And (The) One</h2>
-	</div>
+    <div>
+        <h2>Between (The) Zero And (The) One</h2>
+    </div>
 
-	<nav>
-		<ul class="columns">
-			<li class="column col-2 col-sm-4 col-md-4"><a href="/" class="nav-btn">Index</a></li>
-			<li class="column col-2 col-sm-4 col-md-4"><a href="/about" class="nav-btn">About</a></li>
-      <li class="column col-2 col-sm-4 col-md-4"><a href="{{ "resume.pdf" | get_static }}" class="nav-btn">Resume</a></li>
-		</ul>
-	</nav>
+    <nav>
+        <ul class="columns">
+            <li class="column col-2 col-sm-4 col-md-4">
+                <a href="{{ get_url(path='/') }}" class="nav-btn">Index</a>
+            </li>
+            <li class="column col-2 col-sm-4 col-md-4">
+                <a href="{{ get_url(path='/about/') }}" class="nav-btn">About</a>
+            </li>
+            <li class="column col-2 col-sm-4 col-md-4">
+                <a href="{{ get_url(path='resume.pdf') }}" class="nav-btn">Resume</a>
+            </li>
+        </ul>
+    </nav>
 </header>
