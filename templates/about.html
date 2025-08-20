@@ -1,0 +1,61 @@
+<!-- about.html -->
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<h2 class="page-title">About</h2>
+<div class="divider"></div>
+
+<div class="columns">
+	<div class="column flex-measure-36">
+		<table class="info-table">
+			<thead>
+				<tr>
+					<th colspan="2">Personal Information</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>Name</td>
+				<td>Griffin</td>
+			</tr>
+			<tr>
+				<td>Occupation</td>
+				<td>Software Engineer</td>
+			</tr>
+			<tr>
+				<td>Employer</td>
+				<td><a href="https://ibm.com">IBM</a>, San Jose, CA, USA</td>
+			</tr>
+			<tr>
+				<td>Previous Employers</td>
+				<td><a href="https://mayoclinic.org">Mayo Clinic</a></td>
+			</tr>
+			<tr>
+				<td>Education</td>
+				<td><a href="https://sfsu.edu">San Francisco State University</a>, BS. Computer Science</td>
+			</tr>
+		</table>
+	</div>
+	<div class="column">
+		<table class="info-table">
+			<thead>
+				<tr>
+					<th colspan="2">Social Media</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td> <img class="sm-icon" src="{% static 'home/images/icons/github.svg' %}" alt="Github Icon"> Github </td>
+					<td> <a target="_blank" href="https://github.com/grfwings">grfwings</a> </td>
+				</tr>
+				<tr>
+					<td> <img class="sm-icon" src="{% static 'home/images/icons/twitter.svg' %}" alt="Github Icon"> Twitter </td>
+					<td> <a target="_blank" href="https://twitter.com/grfwings">grfwings</a> </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

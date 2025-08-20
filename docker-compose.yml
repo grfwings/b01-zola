@@ -1,0 +1,30 @@
+services:
+  zola:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: b01_zola
+    networks:
+      - caddy
+    labels:
+      caddy: www.betweenzeroand.one
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+    restart: unless-stopped
+
+  zola-dev:
+    image: ghcr.io/getzola/zola:v0.17.1
+    container_name: zola_dev
+    working_dir: /project
+    volumes:
+      - .:/project
+    command: ["zola", "serve", "--interface", "0.0.0.0", "--port", "1111"]
+    ports:
+      - 1111:1111
+    networks:
+      - caddy
+    restart: unless-stopped
+
+networks:
+  caddy:
+    external: true
+

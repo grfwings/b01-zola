@@ -1,0 +1,167 @@
+* {
+  box-sizing: inherit;
+}
+
+html {
+  background: #FFFAF5;
+  font-size: 16px;
+  box-sizing: border-box;
+  line-height: 1.5rem;
+}
+
+body {
+  line-height: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: .5rem 1rem .25rem;
+  border: 1px solid #888;
+  box-shadow: 2px 2px #ccc;
+  background: #FFFFFF;
+  font-family: 'Univers LT Pro', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: normal;
+  overflow-x: hidden;
+  color: #000; 
+  background: #fff;
+  text-rendering: optimizeLegibility;
+}
+
+.page-centered {
+  display: block;
+  float: none;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 60rem;
+}
+
+nav {
+  display: block;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.4rem;
+  margin-right: -0.4rem;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: disc outside;
+}
+
+nav li {
+  flex: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  width: 16.66666667%;
+  max-width: 100%;
+}
+
+nav .nav-btn {
+  display: inline-block;
+  width: 100%;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border: 1px solid #000;
+  box-shadow: 2px 2px #bbb;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1rem;
+}
+
+nav .nav-btn:hover {
+  background-color: black;
+  box-shadow: 2px 2px #bbb;
+}
+
+.flex-measure-36 {
+  flex 0 0 36;
+}
+
+.page-title {
+  font-weight: bold;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.content-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.text-box {
+  width: 50%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px #bbb;
+  background-color: #fff;
+}
+
+.image-box {
+  width: 50%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px #bbb;
+  background-color: #fff;
+  text-align: center;
+}
+
+.image-box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  border: 0.1rem solid #ddd;
+}
+
+.info-table th, .info-table td {
+  padding: 0.3rem 0.6rem 0;
+  border-bottom: 0.1rem solid #ddd;
+  text-align: left;
+  vertical-align: top;
+}
+
+.info-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.sm-icon {
+  width: 1em;
+}
+
+.active-icon {
+  display: inline-block; 
+  width: 1em; 
+  height: 1em; 
+  border: 0.1em solid #000; 
+  border-radius: 50%; 
+  background: #ff4136;
+  float: right;
+}
+
+.p-centered {
+  display: block;
+  float: none;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.mr2 {
+  margin-right: 0.4rem;
+}
