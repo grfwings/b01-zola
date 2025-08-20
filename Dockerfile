@@ -7,7 +7,7 @@ RUN ["zola", "build"]
 FROM ghcr.io/static-web-server/static-web-server:2
 
 WORKDIR /public
-COPY --from=zola /project/public /public
+COPY --from=zola /target/public /public
 EXPOSE 8180
 CMD ["static-web-server", "/public", "--port", "8180"]
 
