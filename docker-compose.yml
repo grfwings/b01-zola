@@ -4,11 +4,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: b01_zola
+    ports:
+      - "8180:8180"
     networks:
       - caddy
     labels:
       caddy: www.betweenzeroand.one
-      caddy.reverse_proxy: "{{upstreams 8080}}"
+      caddy.reverse_proxy: "{{upstreams 8180}}"
     restart: unless-stopped
 
 networks:

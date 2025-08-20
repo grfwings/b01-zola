@@ -1,5 +1,5 @@
 # The base URL of the site; the only required configuration variable.
-base_url = "http://vecna.tail609c5.ts.net:8180"
+base_url = "https://www.betweenzeroand.one"
 
 # The site title and description; used in feeds by default.
 title = ""
