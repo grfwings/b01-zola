@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock title %}
+
+{% block content %}
+<article class="blog-post">
+  <h2 class="page-title">{{ page.title }}</h2>
+  {% if page.date %}
+  <p class="post-date">{{ page.date | date(format="%B %d, %Y") }}</p>
+  {% endif %}
+  <div class="divider"></div>
+  <div class="content-section">
+    {{ page.content | safe }}
+  </div>
+  
+  <nav class="post-navigation">
+    <a href="{{ get_url(path='blog') }}" class="nav-btn">← Back to Blog</a>
+  </nav>
+</article>
+{% endblock content %}
