@@ -87,8 +87,9 @@ nav .nav-btn:hover {
   margin: 1rem 0;
 }
 
-.content-section {
+.blog-content {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 1rem;
   margin: 1rem 0;
