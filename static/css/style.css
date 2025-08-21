@@ -165,3 +165,54 @@ nav .nav-btn:hover {
 .mr2 {
   margin-right: 0.4rem;
 }
+
+.divider {
+  border-bottom: 1px solid #ddd;
+  margin: 1rem 0;
+}
+
+.blog-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.blog-post-preview {
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px #bbb;
+  background-color: #fff;
+}
+
+.blog-post-preview h3 {
+  margin: 0 0 0.5rem 0;
+  font-weight: bold;
+}
+
+.blog-post-preview h3 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.blog-post-preview h3 a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.blog-post {
+  max-width: 100%;
+}
+
+.post-date {
+  color: #666;
+  font-style: italic;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.post-navigation {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
