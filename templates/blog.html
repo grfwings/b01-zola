@@ -8,17 +8,24 @@
 <div class="blog-content">
   {{ section.content | safe }}
   
-  <div class="blog-posts">
+  <table class="blog-posts">
+    <thead>
+	<tr>
+	  <th>Title</th>
+	  <th>Date</th>
+	</tr>
+    </thead>
     {% for page in section.pages %}
-    <article class="blog-post-preview">
-      <h3><a href="{{ page.permalink }}">{{ page.title }}</a></h3>
-      {% if page.date %}
-      <p class="post-date">{{ page.date | date(format="%B %d, %Y") }}</p>
-      {% endif %}
-      {% if page.summary %}
-      <p>{{ page.summary }}</p>
-      {% endif %}
-    </article>
+    <tbody class="blog-post-preview">
+      <tr>
+        <td>
+      	  <a href="{{ page.permalink }}">{{ page.title }}</a>
+        </td>
+	<td>
+      	  <p class="post-date">{{ page.date | date(format="%Y-%M-$d") }}</p>
+        </td>
+      </tr>
+    </tbody>
     {% endfor %}
   </div>
 </div>
