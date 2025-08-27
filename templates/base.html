@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Between (The) Zero And (The) One" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <title>{% block title %}Page Title{% endblock title %}</title>
+    <title>{% block title %}{{ page.title }}{% endblock title %}</title>
 </head>
 <body class="page-centered">
     {% include "header.html" %}
