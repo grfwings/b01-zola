@@ -12,6 +12,7 @@
     <thead>
 	<tr>
 	  <th>Notes</th>
+	  <th>Date</th>
 	</tr>
     </thead>
     {% for page in section.pages %}
@@ -21,7 +22,7 @@
       	  <a href="{{ page.permalink }}">{{ page.title }}</a>
         </td>
 	<td>
-      	  <p class="post-date">{{ page.date | date(format="%Y-%m-$d") }}</p>
+      	  <p class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</p>
         </td>
       </tr>
     </tbody>
