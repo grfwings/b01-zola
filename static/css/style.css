@@ -217,3 +217,7 @@ nav .nav-btn:hover {
   padding-top: 1rem;
   border-top: 1px solid #ddd;
 }
+
+.content-section {
+  margin: 1rem 0;
+}
