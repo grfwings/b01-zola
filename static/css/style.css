@@ -57,6 +57,11 @@ nav li {
   padding-right: 0.4rem;
   padding-left: 0.4rem;
   width: 16.66666667%;
+
+.post-date {
+  color: #666;
+  font-style: italic;
+}
   max-width: 100%;
 }
 
@@ -126,14 +131,11 @@ nav .nav-btn:hover {
   border: 0.1rem solid #ddd;
 }
 
-.info-table th, .info-table td {
-  padding: 0.3rem 0.6rem 0;
+.info-table th {
+  padding: 0.3rem 0.6rem;
   border-bottom: 0.1rem solid #ddd;
   text-align: left;
   vertical-align: top;
-}
-
-.info-table th {
   background-color: #f0f0f0;
   font-weight: bold;
 }
@@ -205,11 +207,14 @@ nav .nav-btn:hover {
   max-width: 100%;
 }
 
+.post-title, .post-date {
+  padding-left: 0.5rem;
+  font-size: 0.9rem;
+}
+
 .post-date {
   color: #666;
   font-style: italic;
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
 }
 
 .post-navigation {
