@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-title">Now</h2>
+<div class="divider"></div>
+<main>
+  <div class="content-section">
+    {{ page.content | safe }}
+  </div>
+</main>
+{% endblock content %}
