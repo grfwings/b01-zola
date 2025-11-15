@@ -12,6 +12,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Between (The) Zero And (The) One" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
+    <link rel="alternate" type="application/atom+xml" title="RSS" href="{{ get_url(path='atom.xml', trailing_slash=false) }}" />
     <title>{% block title %}{% if page.title %}{{ page.title }}{% elif section.title %}{{ section.title }}{% else %}Page Title{% endif %}{% endblock title %}</title>
 </head>
 <body class="page-centered">

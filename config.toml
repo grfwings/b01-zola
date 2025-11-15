@@ -38,7 +38,7 @@ ignored_content = []
 ignored_static = []
 
 # When set to "true", a feed is automatically generated.
-generate_feeds = false
+generate_feeds = true
 
 # When set to "all", paginated pages are not a part of the sitemap, default is "none"
 exclude_paginated_pages_in_sitemap = "none"
@@ -85,7 +85,7 @@ generate_robots_txt = true
 # Configuration of the Markdown rendering
 [markdown]
 # When set to "true", all code blocks are highlighted.
-highlight_code = false
+highlight_code = true
 
 # When set to "true", missing highlight languages are treated as errors. Defaults to false.
 error_on_missing_highlight = false
