@@ -24,6 +24,7 @@ body {
   color: #000; 
   background: #fff;
   text-rendering: optimizeLegibility;
+  font-size: 1rem;
 }
 
 .page-centered {
@@ -96,7 +97,6 @@ nav .nav-btn:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 1rem;
   margin: 1rem 0;
 }
 
@@ -138,6 +138,10 @@ nav .nav-btn:hover {
   vertical-align: top;
   background-color: #f0f0f0;
   font-weight: bold;
+}
+
+.info-table td {
+  padding: 0.2rem 0.6rem;
 }
 
 .sm-icon {
@@ -225,4 +229,55 @@ nav .nav-btn:hover {
 
 .content-section {
   margin: 1rem 0;
+}
+
+/* Code block styling */
+pre {
+  padding: 1rem;
+  overflow: auto;
+  line-height: 1.2;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px #bbb;
+  background-color: #2b303b !important;
+  margin: 1rem 0;
+}
+
+/* Line numbers support */
+pre[data-linenos] {
+  padding: 1rem 0;
+}
+
+pre table td {
+  padding: 0;
+}
+
+pre table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+pre table td:nth-of-type(1) {
+  text-align: center;
+  user-select: none;
+  padding: 0 0.5rem;
+}
+
+/* Highlighted lines */
+pre mark {
+  display: block;
+  background-color: rgba(254, 252, 232, 0.9);
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+
+/* Inline code */
+p code, li code {
+  background-color: #f0f0f0;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  color: #333;
 }

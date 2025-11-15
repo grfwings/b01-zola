@@ -1,4 +1,7 @@
-# Fun with `#![no_std]`
++++
+title = "Fun with #![no_std]"
+date = 2025-11-14
++++
 
 Many years ago (okay, two) I wrote my first program in Rust. The program is exceedingly simple - it prints, to stdout, a programming-related aphorism, in the style of UNIX [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix)). Most of these aphorisms were taken from a webpage of advice supplied to me by Steve Hodges, the head of the computer science department at Cabrillo College. The program looks like this:
 
@@ -25,7 +28,7 @@ pub const ADVICE: &[&str] = &[
 
 ```
 
-Not the most complex code ever written, I agree. And at 6 lines of code, quite small too. But I recently read Casey Muratori's essay on [the hidden cost of software libraries](https://posts.cgamedev.com/p/the-hidden-cost-of-software-libraries) and it got me thinking. I wonder how small this binary is? First, let's look at the size of the source code:
+Not the most complex code ever written, I agree. And at 6 lines of code, quite small too. But I recently read Gabriel Dechichi's essay on [the hidden cost of software libraries](https://posts.cgamedev.com/p/the-hidden-cost-of-software-libraries) and it got me thinking. I wonder how small this binary is? First, let's look at the size of the source code:
 
 ```console
 $ du -h src/main.rs
@@ -74,7 +77,7 @@ $ du -h target/release/adv
 456K    target/release/adv
 ```
 
-...well, it technically is smaller! But it looks like including std::fs and std::io means we don't get much of a filesize optimization at all. So, how can we get the smallest possible binary in Rust?
+...well, technically it is smaller! But it looks like including std::fs and std::io means we don't get much of a filesize optimization at all. So, how can we get the smallest possible binary in Rust?
 
 ## Enter `#![no_std]`
 
@@ -237,8 +240,6 @@ But the exercise was fun! I learned:
 - How system calls work at the assembly level
 - The real cost of convenience abstractions
 
-The standard library version compiles to 460KB not because Rust is bloated, but because it includes panic handling, formatting, UTF-8 validation, and cross-platform abstractions. For most programs, that's a reasonable trade-off.
+The standard library version compiles to 460KB not because Rust is bloated, but because it includes panic handling, formatting, UTF-8 validation, and cross-platform abstractions. For most programs, that's a reasonable trade-off. Of course, if you wanted to make this really small, you could rewrite it in assembly... but that's a task for another time.
 
 If you'd like to see this for yourself, you can see both the [regular](https://github.com/grfwings/adv/tree/master) and [no_std](https://github.com/grfwings/adv/tree/nostd) on my [github](https://github.com/grfwings). Additionally, this program is available in the [AUR](https://aur.archlinux.org/packages/adv) if you'd like to try it yourself.
-
-If you're reading this, that means you made it all the way to the end of my blog post. Thank you for reading!!
