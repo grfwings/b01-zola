@@ -58,11 +58,6 @@ nav li {
   padding-right: 0.4rem;
   padding-left: 0.4rem;
   width: 16.66666667%;
-
-.post-date {
-  color: #666;
-  font-style: italic;
-}
   max-width: 100%;
 }
 
@@ -84,7 +79,28 @@ nav .nav-btn:hover {
 }
 
 .flex-measure-36 {
-  flex 0 0 36;
+  flex: 0 0 60%;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 600px) {
+  .content-section.columns {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-section.columns .column {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .info-table {
+    table-layout: auto;
+  }
+
+  .info-table td {
+    word-break: break-word;
+  }
 }
 
 .page-title {
