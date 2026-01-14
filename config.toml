@@ -88,7 +88,7 @@ generate_robots_txt = true
 # When set to "true", missing highlight languages are treated as errors. Defaults to false.
 error_on_missing_language = false
 
-rendering_style = "inline"
+style = "inline"
 
 # The theme to use for code highlighting.
 # See below for list of allowed values.
