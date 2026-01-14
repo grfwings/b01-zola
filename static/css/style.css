@@ -79,7 +79,7 @@ nav .nav-btn:hover {
 }
 
 .flex-measure-36 {
-  flex: 0 0 60%;
+  flex: 0 0 50%;
 }
 
 /* Mobile responsive styles */
@@ -158,6 +158,7 @@ nav .nav-btn:hover {
 
 .info-table td {
   padding: 0.2rem 0.6rem;
+  overflow-wrap: break-word;
 }
 
 .sm-icon {

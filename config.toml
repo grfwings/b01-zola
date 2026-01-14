@@ -86,13 +86,13 @@ generate_robots_txt = true
 [markdown.highlighting]
 
 # When set to "true", missing highlight languages are treated as errors. Defaults to false.
-error_on_missing_highlight = false
+error_on_missing_language = false
 
-style = "inline"
+rendering_style = "inline"
 
 # The theme to use for code highlighting.
 # See below for list of allowed values.
-theme = "gruvbox-light-medium"
+theme = "gruvbox-dark-hard"
 
 # Configuration of the Markdown rendering
 [markdown]
