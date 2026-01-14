@@ -18,7 +18,7 @@ fn main() {
 }
 ```
 
-where ADVICE is a static array of aphorisms, like
+Where ADVICE is a static array of aphorisms, like
 
 ```rust
 pub const ADVICE: &[&str] = &[
@@ -28,7 +28,7 @@ pub const ADVICE: &[&str] = &[
 
 ```
 
-Not the most complex code ever written, I agree. And at 6 lines of code, quite small too. But I recently read Gabriel Dechichi's essay on [the hidden cost of software libraries](https://posts.cgamedev.com/p/the-hidden-cost-of-software-libraries) and it got me thinking. I wonder how small this binary is? First, let's look at the size of the source code:
+Not the most complex code ever written, I agree. And at 6 lines of code, quite small too. But I recently read Gabriel Dechichi's essay on [the hidden cost of software libraries](https://posts.cgamedev.com/p/the-hidden-cost-of-software-libraries) and decided to play around with optimization. First, let's look at the size of the source code:
 
 ```console
 $ du -h src/main.rs
@@ -50,7 +50,7 @@ $ du -h target/release/adv
 
 A ~460ms build time (not bad), but the file size shows a 60x (okay, 57.5x) increase! Wow!! Well, it's still only half a megabyte though...
 
-"Hold on, you idiot!" I hear you interject "You don't need an external dependency to get a pseudorandom number! Just read from /dev/urandom!" You're right! Let's rewrite this with \~no external dependencies\~
+"Hold on!" I hear you say "You don't need an external dependency to get a pseudorandom number! Just read from /dev/urandom!" You're right! Let's rewrite this with \~no external dependencies\~
 
 ```rust
 
@@ -79,13 +79,13 @@ $ du -h target/release/adv
 
 ...well, technically it is smaller! But it looks like including std::fs and std::io means we don't get much of a filesize optimization at all. So, how can we get the smallest possible binary in Rust?
 
-## Enter `#![no_std]`
+## `#![no_std]`
 
 For the uninitiated, `#![no_std]` is a directive that tells the compiler to exclude the standard library entirely from your program. When you use `no_std`, you only get access to [core](https://doc.rust-lang.org/core), the minimal, platform-agnostic library providing basic types, traits, and functions. It's intended for use in embedded systems, bootloaders, and kernels where there's no OS to provide these services. But, to save a few bytes, these are the depths we must plunge.
 
 ### 1. System Calls
 
-Without std, I can't use `println!` or `std::fs`. I needed to talk directly to the Linux kernel using the [x86_64](https://en.wikipedia.org/wiki/X86-64) system call interface. For the uninitiated, a syscall is a way for a humble programmer to kneel at the altar of the almighty kernel and receive blessings. Thankfully, Rust's `core` library makes this easy to do.
+Without std, I can't use `println!` or `std::fs`. I needed to talk directly to the Linux kernel using the [x86_64](https://en.wikipedia.org/wiki/X86-64) system call interface. Thankfully, Rust's `core` library makes this easy to do.
 
 An x86_64 syscall works by placing values in specific [CPU registers](https://en.wikipedia.org/wiki/Processor_register):
 
@@ -142,7 +142,7 @@ fn panic(_info: &core::panic::PanicInfo) -> ! {
 }
 ```
 
-The function signature uses `-> !` (the "never" type) because a panic handler must never return - it either loops forever, exits the process, or does something equally terminal. You might wonder "Why not just print an error message?" Well, because the state of the system is undefined, executing a syscall risks making things worse. The convention in a `no_std` environment is to simply loop forever and allow the unlucky user to deal with the mess.
+The function signature uses `-> !` (the "never" type) because a panic handler must never return - it either loops forever, exits the process, or does something equally terminal. You might wonder "Why not just print an error message?" The reason is because when the state of the system is undefined, executing a syscall risks making things worse. The convention in a `no_std` environment is to simply loop forever and allow the unlucky user to deal with the mess.
 
 ### 3. The Easy Stuff
 
@@ -169,7 +169,7 @@ pub unsafe extern "C" fn _start() -> ! {
 
 ### 4. Missing Pieces
 
-The linker complained about two missing symbols:
+This is looking good, but the linker will complain about two missing symbols:
 
 **`memset`**: The compiler generates calls to `memset` when initializing arrays. Since we are not linking against libc, I have to provide my own implementation:
 
@@ -224,22 +224,6 @@ $ du -h target/release/adv
 
 We cut the build time down by 200ms! But more importantly, we got the file size down to just 8KB - a 98% reduction from the original 460KB! Incredibly tiny!
 
-The final program is remarkably simple. Get random bytes, pick an index, write to stdout, exit. No layers of abstraction, no hidden costs.
+The final program is dead simple. Get random bytes, pick an index, write to stdout, exit.
 
-### Was It Worth It?
-
-For a production system? Probably not. The `no_std` version is:
-
-- **Platform-specific** (x86_64 Linux only)
-- **Harder to maintain** (raw syscalls are less readable)
-- **Missing safety guarantees** (lots of `unsafe`)
-
-But the exercise was fun! I learned:
-
-- What the standard library actually provides
-- How system calls work at the assembly level
-- The real cost of convenience abstractions
-
-The standard library version compiles to 460KB not because Rust is bloated, but because it includes panic handling, formatting, UTF-8 validation, and cross-platform abstractions. For most programs, that's a reasonable trade-off. Of course, if you wanted to make this really small, you could rewrite it in assembly... but that's a task for another time.
-
-If you'd like to see this for yourself, you can see both the [regular](https://github.com/grfwings/adv/tree/master) and [no_std](https://github.com/grfwings/adv/tree/nostd) on my [github](https://github.com/grfwings). Additionally, this program is available in the [AUR](https://aur.archlinux.org/packages/adv) if you'd like to try it yourself.
+If you'd like to see this for yourself, you can see both the [regular](https://github.com/grfwings/adv/tree/master) and [no_std](https://github.com/grfwings/adv/tree/nostd) on my [github](https://github.com/grfwings). Additionally, this program is available in the [AUR](https://aur.archlinux.org/packages/adv) if you'd like to try it yourself (if you do, thanks!)
