@@ -1,6 +1,11 @@
 +++
 title = "Fun with #![no_std]"
 date = 2025-11-14
+draft = true
+
+[taxonomies]
+categories = ["Technical"]
+tags = ["programming", "rust"]
 +++
 
 Many years ago (okay, two) I wrote my first program in Rust. The program is exceedingly simple - it prints, to stdout, a programming-related aphorism, in the style of UNIX [fortune](https://en.wikipedia.org/wiki/Fortune_(Unix)). Most of these aphorisms were taken from a webpage of advice supplied to me by Steve Hodges, the head of the computer science department at Cabrillo College. The program looks like this:
@@ -89,7 +94,7 @@ Without std, I can't use `println!` or `std::fs`. I needed to talk directly to t
 
 An x86_64 syscall works by placing values in specific [CPU registers](https://en.wikipedia.org/wiki/Processor_register):
 
-- `rax` contains the syscall number - an identifier telling the kernel what operation you want (1 = write, 318 = getrandom, etc.) You can find a complete list in the [manual](https://man7.org/linux/man-pages/man2/syscalls.2.html)
+- `rax` contains the syscall number, an identifier telling the kernel what operation you want (1 = write, 318 = getrandom, etc.) You can find a complete list in the [manual](https://man7.org/linux/man-pages/man2/syscalls.2.html)
 - `rdi`, `rsi`, and `rdx` contain arguments to the syscall such as a file descriptor, buffer, etc.
 
 After the syscall executes, the `rax` register contains the return value.
@@ -131,7 +136,7 @@ unsafe fn exit(code: usize) -> ! {
 
 ### 2. Doing Nothing Forever
 
-When you neglect to include the standard library, you lose Rust's panic runtime - the code that prints a nice error message and backtrace when something goes wrong. In a `no_std` environment, you must provide your own panic handler.
+When you neglect to include the standard library, you lose Rust's panic runtime, the code that prints a nice error message and backtrace when something goes wrong. In a `no_std` environment, you must provide your own panic handler.
 
 The panic handler has one job: decide what to do when the program panics. For us, the answer is simple: We will do nothing, forever.
 

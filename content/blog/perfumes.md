@@ -1,6 +1,10 @@
 +++
 title = "Scents I Enjoy"
 date = 2025-10-25
+
+[taxonomies]
+categories = ["Personal"]
+tags = ["perfume"]
 +++
 
 My favorite perfume shop is [Abdes Salaam Attars Perfumes](https://naturalnicheperfume.com/).

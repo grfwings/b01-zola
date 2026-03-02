@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanidm OAuth2 Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #000;
+            color: #fff;
+            border: 1px solid #000;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #333;
+        }
+        #userInfo {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kanidm OAuth2 Test</h1>
+
+    <div id="loginSection">
+        <button onclick="login()">Login with Kanidm</button>
+    </div>
+
+    <div id="loggedInSection" class="hidden">
+        <h2>You're logged in!</h2>
+        <button onclick="logout()">Logout</button>
+        <div id="userInfo"></div>
+    </div>
+
+    <script>
+        const CONFIG = {
+            authorizationEndpoint: 'https://b01-idm.com/ui/oauth2',
+            tokenEndpoint: 'https://b01-idm.com/oauth2/token',
+            clientId: 'betweenzeroand.one',
+            redirectUri: window.location.origin + '/oauth-test.html',
+            scope: 'openid profile email'
+        };
+
+        // Generate random string for PKCE
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+            let result = '';
+            const randomValues = new Uint8Array(length);
+            crypto.getRandomValues(randomValues);
+            for (let i = 0; i < length; i++) {
+                result += chars[randomValues[i] % chars.length];
+            }
+            return result;
+        }
+
+        // Generate PKCE challenge
+        async function generateCodeChallenge(verifier) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(verifier);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return btoa(String.fromCharCode(...new Uint8Array(hash)))
+                .replace(/\+/g, '-')
+                .replace(/\//g, '_')
+                .replace(/=+$/, '');
+        }
+
+        // Start login flow
+        async function login() {
+            const state = generateRandomString(32);
+            const codeVerifier = generateRandomString(128);
+            const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+            // Store for callback
+            sessionStorage.setItem('oauth_state', state);
+            sessionStorage.setItem('code_verifier', codeVerifier);
+
+            // Build authorization URL
+            const params = new URLSearchParams({
+                response_type: 'code',
+                client_id: CONFIG.clientId,
+                redirect_uri: CONFIG.redirectUri,
+                scope: CONFIG.scope,
+                state: state,
+                code_challenge: codeChallenge,
+                code_challenge_method: 'S256'
+            });
+
+            window.location.href = `${CONFIG.authorizationEndpoint}?${params}`;
+        }
+
+        // Handle callback
+        async function handleCallback() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            const state = params.get('state');
+
+            if (!code) return;
+
+            // Verify state
+            const savedState = sessionStorage.getItem('oauth_state');
+            if (state !== savedState) {
+                alert('Invalid state parameter');
+                return;
+            }
+
+            // Exchange code for token
+            const codeVerifier = sessionStorage.getItem('code_verifier');
+
+            try {
+                const response = await fetch(CONFIG.tokenEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        grant_type: 'authorization_code',
+                        code: code,
+                        redirect_uri: CONFIG.redirectUri,
+                        client_id: CONFIG.clientId,
+                        code_verifier: codeVerifier
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Token exchange failed: ${response.status}`);
+                }
+
+                const tokens = await response.json();
+
+                // Store tokens
+                sessionStorage.setItem('access_token', tokens.access_token);
+                sessionStorage.setItem('id_token', tokens.id_token);
+
+                // Decode and display user info
+                const idToken = parseJwt(tokens.id_token);
+                displayUserInfo(idToken);
+
+                // Clean up URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+                console.error(error);
+            }
+
+            // Clean up session storage
+            sessionStorage.removeItem('oauth_state');
+            sessionStorage.removeItem('code_verifier');
+        }
+
+        // Parse JWT (simple base64 decode)
+        function parseJwt(token) {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+            return JSON.parse(jsonPayload);
+        }
+
+        // Display user information
+        function displayUserInfo(userInfo) {
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('loggedInSection').classList.remove('hidden');
+            document.getElementById('userInfo').textContent = JSON.stringify(userInfo, null, 2);
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.clear();
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('loggedInSection').classList.add('hidden');
+        }
+
+        // Check if already logged in
+        window.addEventListener('load', () => {
+            const idToken = sessionStorage.getItem('id_token');
+            if (idToken) {
+                displayUserInfo(parseJwt(idToken));
+            } else {
+                handleCallback();
+            }
+        });
+    </script>
+</body>
+</html>

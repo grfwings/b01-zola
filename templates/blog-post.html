@@ -12,9 +12,60 @@
   <div class="blog-content">
     {{ page.content | safe }}
   </div>
-  
+
+  <div class="divider"></div>
+
+  {% if page.taxonomies %}
+  <div class="post-taxonomies">
+    {% if page.taxonomies.categories %}
+    <p>
+      <strong>Category:</strong>
+      {% for category in page.taxonomies.categories %}
+      <a href="{{ get_taxonomy_url(kind='categories', name=category) | safe }}">{{ category }}</a>{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
+
+    {% if page.taxonomies.tags %}
+    <p>
+      <strong>Tags:</strong>
+      {% for tag in page.taxonomies.tags %}
+      <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="divider"></div>
+
+  <section class="comments-section">
+    <h3>Leave a Comment</h3>
+    <div id="comments-list">
+      <!-- Comments will appear here -->
+    </div>
+
+    <div class="comment-form">
+      <form>
+        <label for="comment-name">Name</label>
+        <input type="text" id="comment-name" name="name" required>
+
+        <label for="comment-email">Email</label>
+        <input type="email" id="comment-email" name="email" required>
+
+        <label for="comment-website">Website (optional)</label>
+        <input type="url" id="comment-website" name="website">
+
+        <label for="comment-text">Comment</label>
+        <textarea id="comment-text" name="comment" rows="5" required></textarea>
+
+        <button type="submit" class="nav-btn">Submit Comment</button>
+      </form>
+    </div>
+  </section>
+
   <nav class="post-navigation">
-    <a href="{{ get_url(path='blog') }}" class="nav-btn">← Back to Blog</a>
+    <a href="{{ get_url(path='blog') }}" class="nav-btn">Back to Blog</a>
   </nav>
 </article>
 {% endblock content %}

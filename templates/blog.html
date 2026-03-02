@@ -3,7 +3,7 @@
 {% block title %}{{ section.title }}{% endblock title %}
 
 {% block content %}
-<h2 class="page-title">{{ section.title }}</h2>
+<h2 class="page-title">This is a blog about BL</h2>
 <div class="divider"></div>
 <div class="blog-content">
   {{ section.content | safe }}
@@ -13,6 +13,8 @@
 	<tr>
 	  <th>Notes</th>
 	  <th>Date</th>
+	  <th>Categories</th>
+	  <th>Tags</th>
 	</tr>
     </thead>
     {% for page in section.pages %}
@@ -24,9 +26,23 @@
 	<td>
       	  <p class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</p>
         </td>
+	<td>
+	  {% if page.taxonomies.categories %}
+	    {% for category in page.taxonomies.categories %}
+	      <a href="{{ get_taxonomy_url(kind='categories', name=category) | safe }}">{{ category }}</a>{% if not loop.last %}, {% endif %}
+	    {% endfor %}
+	  {% endif %}
+	</td>
+	<td>
+	  {% if page.taxonomies.tags %}
+	    {% for tag in page.taxonomies.tags %}
+	      <a href="{{ get_taxonomy_url(kind='tags', name=tag) | safe }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+	    {% endfor %}
+	  {% endif %}
+	</td>
       </tr>
     </tbody>
     {% endfor %}
-  </div>
+  </table>
 </div>
 {% endblock content %}

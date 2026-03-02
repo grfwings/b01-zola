@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-title">Resume</h2>
+<div class="divider"></div>
+
+<div class="resume">
+	<h4 class="resume-section-title">Experience</h4>
+
+	<div class="resume-entry">
+		<div class="resume-entry-header">
+			<strong>Software Engineer</strong>
+			<span class="resume-date">June 2024&ndash;Present</span>
+		</div>
+		<div class="resume-entry-sub">
+			<a href="https://ibm.com">IBM</a> / IMS System Verification Testing
+		</div>
+		<ul>
+			<li>Integrated production-scale mainframe test environments spanning multiple hardware partitions and hundreds of databases into a JUnit test framework, enabling automated execution and freeing dozens of hours of engineering time per week.</li>
+			<li>Built an MCP server for retrieval-augmented generation (RAG) against IBM documentation, significantly improving LLM accuracy for z/OS development tasks.</li>
+			<li>Won first place at IBM Developer JumpStart with AI Watch &ndash; an internal tool harnessing LLMs for agentic Kubernetes debugging.</li>
+			<li>Created OpenTelemetry configuration for test framework enabling distributed telemetry data collection.</li>
+		</ul>
+	</div>
+
+	<div class="resume-entry">
+		<div class="resume-entry-header">
+			<strong>Software Engineer Intern</strong>
+			<span class="resume-date">May 2023&ndash;August 2023</span>
+		</div>
+		<div class="resume-entry-sub">
+			<a href="https://ibm.com">IBM</a> / IMS SVT/Performance
+		</div>
+		<ul>
+			<li>Rewrote Java test framework to improve performance by ~20%.</li>
+			<li>Wrote custom REXX/IMS executables to recreate &amp; scale test environments.</li>
+			<li>Selected for IBM Extreme Blue; designed a new testing framework for the Common Cryptography Architecture team.</li>
+		</ul>
+	</div>
+
+	<div class="resume-entry">
+		<div class="resume-entry-header">
+			<strong>IT Software Engineer Intern</strong>
+			<span class="resume-date">July 2022&ndash;May 2023</span>
+		</div>
+		<div class="resume-entry-sub">
+			<a href="https://mayoclinic.org">Mayo Clinic</a> / Patient Platform Team
+		</div>
+		<ul>
+			<li>Developed and maintained features on Mayo Clinic's patient-facing web portal serving millions of users.</li>
+			<li>Updated COVID-19 testing applications to maintain compliance with evolving CDC guidelines.</li>
+			<li>Integrated patient portal applications with Epic EHR system.</li>
+		</ul>
+	</div>
+
+	<h4 class="resume-section-title">Education</h4>
+
+	<div class="resume-entry">
+		<div class="resume-entry-header">
+			<strong>B.S. Computer Science</strong>
+			<span class="resume-date">2022&ndash;2024</span>
+		</div>
+		<div class="resume-entry-sub">
+			<a href="https://sfsu.edu">San Francisco State University</a>
+		</div>
+		<ul>
+			<li>As Outreach Officer, ACM @ SFSU, led efforts to provide workshops and learning opportunities for students.</li>
+			<li>Secured sponsorship deals with companies including Microsoft, GitLab, and Deloitte, raising over $30,000 in funding for club activities.</li>
+		</ul>
+	</div>
+
+	<h4 class="resume-section-title">Skills</h4>
+
+	<div class="resume-skills">
+		<div class="resume-skill-row">
+			<span class="resume-skill-label">Languages</span>
+			<span class="resume-skill-value">C, C++, Java, Python, JavaScript, C#, Rust, REXX, Bash, Assembler, SQL</span>
+		</div>
+		<div class="resume-skill-row">
+			<span class="resume-skill-label">Dev Tools</span>
+			<span class="resume-skill-value">Git, Postman, Node.js, React, Docker, SQLite, MySQL, Postgres, Django</span>
+		</div>
+		<div class="resume-skill-row">
+			<span class="resume-skill-label">Infrastructure</span>
+			<span class="resume-skill-value">Linux/UNIX, AWS, Azure, GCP, OCI, Kubernetes, OpenTelemetry, z/OS</span>
+		</div>
+	</div>
+
+	<div class="resume-footer">
+		<p>For full resume, email <a href="mailto:grfwings@pm.me">grfwings@pm.me</a></p>
+	</div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-title">{{ taxonomy.name | title }}: {{ term.name }}</h2>
+<div class="divider"></div>
+
+<div class="blog-posts">
+    {% for page in term.pages %}
+    <div class="blog-post-preview">
+        <h3><a href="{{ page.permalink | safe }}">{{ page.title }}</a></h3>
+        <p class="post-date">{{ page.date }}</p>
+        {% if page.summary %}
+        <p>{{ page.summary }}</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<p><a href="{{ config.base_url }}/{{ taxonomy.name }}/">← Back to all {{ taxonomy.name }}</a></p>
+{% endblock content %}

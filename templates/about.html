@@ -4,14 +4,10 @@
 <h2 class="page-title">About</h2>
 <div class="divider"></div>
 
-<div class="content-section columns">
-	<div class="column flex-measure-36">
+<div class="about-grid">
+	<div class="about-card">
+		<div class="about-card-header">Personal Information</div>
 		<table class="info-table">
-			<thead>
-				<tr>
-					<th colspan="2">Personal Information</th>
-				</tr>
-			</thead>
 			<tr>
 				<td>Name</td>
 				<td>Griffin</td>
@@ -22,7 +18,7 @@
 			</tr>
 			<tr>
 				<td>Employer</td>
-				<td><a href="https://ibm.com">IBM</a>, San Jose, CA, USA</td>
+				<td><a href="https://ibm.com">IBM</a></td>
 			</tr>
 			<tr>
 				<td>Previous Employers</td>
@@ -34,24 +30,31 @@
 			</tr>
 		</table>
 	</div>
-	<div class="column">
+
+	<div class="about-card">
+		<div class="about-card-header">Links</div>
 		<table class="info-table">
-			<thead>
-				<tr>
-					<th colspan="2">Social Media</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td> <img class="sm-icon" src="/images/icons/github.svg" alt="Github Icon"> Github </td>
-					<td> <a target="_blank" href="https://github.com/grfwings">grfwings</a> </td>
-				</tr>
-				<tr>
-					<td> <img class="sm-icon" src="/images/icons/bluesky.svg" alt="Bluesky Icon"> Bluesky </td>
-					<td> <a target="_blank" href="https://bsky.app/profile/betweenzeroand.one">betweenzeroand.one</a> </td>
-				</tr>
-			</tbody>
+			<tr>
+				<td><img class="sm-icon" src="/images/icons/github.svg" alt="Github Icon"> Github</td>
+				<td><a target="_blank" href="https://github.com/grfwings">grfwings</a></td>
+			</tr>
+			<tr>
+				<td><img class="sm-icon" src="/images/icons/bluesky.svg" alt="Bluesky Icon"> Bluesky</td>
+				<td><a target="_blank" href="https://bsky.app/profile/betweenzeroand.one">betweenzeroand.one</a></td>
+			</tr>
+			<tr>
+				<td><img class="sm-icon" src="/images/icons/twitter.svg" alt="Twitter Icon"> Twitter</td>
+				<td><a target="_blank" href="https://twitter.com/grfwings">grfwings</a></td>
+			</tr>
 		</table>
 	</div>
 </div>
+
+<div class="now-section">
+	<h3 class="now-heading">Now</h3>
+	<div class="now-content">
+		{{ page.content | safe }}
+	</div>
+</div>
+
 {% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-title">{{ taxonomy.name | title }}</h2>
+<div class="divider"></div>
+
+<ul>
+{% for term in terms %}
+    <li>
+        <a href="{{ term.permalink | safe }}">{{ term.name }}</a> ({{ term.pages | length }} post{% if term.pages | length != 1 %}s{% endif %})
+    </li>
+{% endfor %}
+</ul>
+{% endblock content %}
