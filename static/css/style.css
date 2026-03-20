@@ -304,6 +304,53 @@ nav .nav-btn:hover {
   margin-top: 0.5rem;
 }
 
+.comment {
+  padding: 1rem;
+  border: 1px solid #eee;
+  margin-bottom: 0.5rem;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.comment-date {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.comment-body {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.comment-auth {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px #bbb;
+  text-align: center;
+}
+
+.comment-logout {
+  margin-top: 0.5rem;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-decoration: underline;
+}
+
+.no-comments {
+  color: #888;
+  font-style: italic;
+}
+
 /* Code block styling */
 pre {
   padding: 1rem;

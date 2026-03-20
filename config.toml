@@ -223,3 +223,5 @@ index_format = "elasticlunr_javascript"
 # author value will be available using {{ config.extra.author }} in templates
 #
 [extra]
+api_base = "http://localhost:3001"
+# api_base = ""

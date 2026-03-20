@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Authenticating...</title>
+</head>
+<body>
+  <p>Authenticating, please wait...</p>
+  <script>
+    const CONFIG = {
+      tokenEndpoint: 'https://b01-idm.com/auth/v1/oidc/token',
+      clientId: 'b01',
+      redirectUri: window.location.origin + '/auth-callback.html'
+    };
+
+    async function handleCallback() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const state = params.get('state');
+
+      if (!code) {
+        document.body.textContent = 'No authorization code received.';
+        return;
+      }
+
+      const savedState = sessionStorage.getItem('oauth_state');
+      if (state !== savedState) {
+        document.body.textContent = 'Invalid state parameter.';
+        return;
+      }
+
+      const codeVerifier = sessionStorage.getItem('code_verifier');
+
+      try {
+        const response = await fetch(CONFIG.tokenEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: CONFIG.redirectUri,
+            client_id: CONFIG.clientId,
+            code_verifier: codeVerifier
+          })
+        });
+
+        if (!response.ok) throw new Error('Token exchange failed: ' + response.status);
+
+        const tokens = await response.json();
+        sessionStorage.setItem('access_token', tokens.access_token);
+        if (tokens.id_token) sessionStorage.setItem('id_token', tokens.id_token);
+      } catch (error) {
+        document.body.textContent = 'Login failed: ' + error.message;
+        return;
+      }
+
+      sessionStorage.removeItem('oauth_state');
+      sessionStorage.removeItem('code_verifier');
+
+      const returnUrl = sessionStorage.getItem('auth_return_url') || '/';
+      sessionStorage.removeItem('auth_return_url');
+      window.location.href = returnUrl;
+    }
+
+    handleCallback();
+  </script>
+</body>
+</html>
