@@ -1,0 +1,33 @@
+services:
+  site:
+    image: ghcr.io/grfwings/b01-zola/site:latest
+    build:
+      context: ./site
+    container_name: b01-site
+    ports:
+      - "8180:80"
+    networks:
+      - caddy
+    restart: unless-stopped
+
+  backend:
+    image: ghcr.io/grfwings/b01-zola/backend:latest
+    build:
+      context: ./backend
+    container_name: b01-backend
+    environment:
+      - DATABASE_URL=sqlite:/data/comments.db
+      - USERINFO_URL=https://b01-idm.com/auth/v1/oidc/userinfo
+      - CORS_ORIGIN=https://www.betweenzeroand.one
+      - LISTEN_ADDR=0.0.0.0:3001
+    volumes:
+      - ./data:/data
+    ports:
+      - "3001:3001"
+    networks:
+      - caddy
+    restart: always
+
+networks:
+  caddy:
+    external: true
